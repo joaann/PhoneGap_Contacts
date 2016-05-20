@@ -1,21 +1,31 @@
 (function(){
 
-var module = angular.module('contact-service',[]);
+var module = angular.module('contact-service',['ngCordova']);
 
-  module.service('ContactService', [ function () {
-	  var getContactListUri = [{ id:0, name: "Alice" }, { id:1, name: "Bob" }, { id:2, name: "Lars" }];
+  module.service('ContactService',[ '$cordovaContacts', function ($cordovaContacts) {
+	  var contacts = [];
+	  //var getContactListUri = [{ id:0, name: "Alice" }, { id:1, name: "Bob" }, { id:2, name: "Lars" }];
 	  return ({
-		 getContactList: getContactList,
+		 getContacts: getContacts,
 		 getContactDetails: getContactDetails
 	  });
 	  
-	  function getContactList(){
-		  return getContactListUri;
+	  function getContacts(){
+			return $cordovaContacts.find({filter : '', fields:  [ 'displayName']}).then(onAllContactsLoadedCallback,onError);
 	  }
 	  
 	  function getContactDetails(contactId){
-		  var person = _.findWhere(getContactListUri,{id: contactId});
-		  return person;
+		console.log("Id of contact: "+contactId)
+		var contact = _.findWhere(contacts,{id: contactId});
+		console.log("contact info "+JSON.stringify(contact));
+		  return contact;
+	  }
+	  function onAllContactsLoadedCallback(data){
+		  contacts = data;
+		  return contacts;
+	  }
+	  function onError(err){
+		  alert(err);
 	  }
   }]);
 

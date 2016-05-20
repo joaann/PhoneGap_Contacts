@@ -1,4 +1,5 @@
 angular.module('contactApp',[
+					'ngCordova',
                       'ui.router',
                       'contact-controllers',
                       'contact-service'
@@ -17,34 +18,32 @@ angular.module('contactApp',[
                     	  .state('contacts',{
                     		  abstract: true,
                     		  url: '/contacts',
-                    		  templateUrl: '/partials/contacts.html',
+                    		  templateUrl: 'partials/contacts.html',
                     		  onEnter: function(){
                     			  console.log("enter contacts");
                     		  }
                     	  })
                     	  .state('contacts.list',{
                     		  url:'/list',
-                    		  templateUrl:'/partials/contacts.list.html',
-                       		  controller: 'SimpleCtrl',
-                    		  resolve:{
-                    			  contacts: function(ContactService){
-                    				  return ContactService.getContactList();
-                    			  }
-                    		  },
+                    		  templateUrl:'partials/contacts.list.html',
+                       		  controller: 'SimpleCtrl', //SimpleCtrl or ContactListCtrl
+                    		  // resolve:{
+                    			   // contacts: function(ContactService){
+                    				   // return ContactService.getContacts();
+                    			   // }
+                    		   // },
                     		  onEnter: function(){
                     			  console.log("enter contacts.list");
                     		  }
 
-                    	  //controller: 'ContactListCtrl'
 
                     	  })
                     	  .state('contacts.detail',{
                     		  url:'/contacts/:id',
-                    		  templateUrl: '/partials/contacts.detail.html',
-                    		  //controller: 'ContactInfoCtrl'
-                    		  controller: 'DetailCtrl',
+                    		  templateUrl: 'partials/contacts.detail.html',
+                    		  controller: 'DetailCtrl', //DetailCtrl or ContactInfoCtrl
                     		  resolve:{
-                    			  person: function(ContactService,$stateParams){
+                    			  contact: function(ContactService,$stateParams){
                     				  return ContactService.getContactDetails($stateParams.id);
                     			  }
                     		  },

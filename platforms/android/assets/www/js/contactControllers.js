@@ -1,26 +1,25 @@
 (function(){
 	var module = angular.module('contact-controllers', ['ngCordova', 'contact-service']);
-	
+
 	module.controller('SimpleCtrl',['$scope', '$cordovaContacts','ContactService',function($scope, $cordovaContacts, ContactService){
 		$scope.contacts = [];
-		var start = new Date().getTime();
+
 		$scope.getAllContacts = function(){
+			var start = new Date().getTime();
 			ContactService.getContacts().then(function(data){
-			$scope.contacts = data;
-		});
-		var end = new Date().getTime();
-		$scope.time = end - start;
-		//alert('Execution time: ' + time);
-		}
-		//$scope.contacts=contacts;
-		//console.log('SimpleCtrl');
+				$scope.contacts = data;
+				var end = new Date().getTime();
+				$scope.time = end - start;
+			});
+
+		};
 	}])
-		module.controller('DetailCtrl',['$scope','contact', function($scope, contact){
-			console.log('DetailCtrl');
-			$scope.contact = contact;
-			console.log("ControllerContactInfo: "+JSON.stringify(contact));
+	module.controller('DetailCtrl',['$scope','contact', function($scope, contact){
+		console.log('DetailCtrl');
+		$scope.contact = contact;
+		console.log("ControllerContactInfo: "+JSON.stringify(contact));
 	}]);
-	
+
 
 
 })();

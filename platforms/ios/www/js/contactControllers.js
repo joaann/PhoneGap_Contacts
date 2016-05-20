@@ -1,50 +1,21 @@
 (function(){
-	var module = angular.module('contact-controllers', []);
-
-//	module.controller('ContactSearchCtrl', ['$scope', function($scope){
-//			$scope.contacts = [];
-//			var options = new ContactFindOptions();
-//			//options.filter=""; //returns all results
-//			options.filter=$scope.searchTxt;
-//			options.multiple=true;
-//			var fields = ["displayName", "name", "phoneNumbers", "emails"];
-//			navigator.contacts.find(fields,function(contacts) {
-//				$scope.contacts=contacts;
-//				$scope.$apply();
-//			},function(e){console.log("Error finding contacts " + e.code)},options);
-//	}])
-//
-//	module.controller('ContactListCtrl',['$scope', function($scope){
-//			$scope.contacts = [];
-//			var options = new ContactFindOptions();
-//			options.filter=""; //returns all results
-//			options.multiple=true;
-//			options.hasPhoneNumber=true;
-//			var fields = ["id","displayName", "name", "phoneNumbers", "emails"];
-//			navigator.contacts.find(fields,function(contacts) {
-//				$scope.contacts=contacts;
-//				$scope.$apply();
-//			},function(e){console.log("Error finding contacts " + e.code)},options);
-//	}])
-//	
-//	module.controller('ContactInfoCtrl', ['$scope','contactId', '$stateParams', function($scope, contactId, $stateParams) {
-//			var options = new ContactFindOptions();
-//			options.filter=$stateParams.contactId;
-//			options.multiple=true;
-//			options.hasPhoneNumber=true;
-//			var fields = ["id","displayName", "name", "phoneNumbers", "emails"];
-//			navigator.contacts.find(fields,function(contacts) {
-//				$scope.contacts=contacts;
-//				$scope.$apply();
-//			},function(e){console.log("Error finding contacts " + e.code)},options);
-//	}])
-		module.controller('SimpleCtrl',['$scope','contacts', function($scope, contacts){
-		console.log('SimpleCtrl');
-		$scope.contacts=contacts;
+	var module = angular.module('contact-controllers', ['ngCordova', 'contact-service']);
+	
+	module.controller('SimpleCtrl',['$scope', '$cordovaContacts','ContactService',function($scope, $cordovaContacts, ContactService){
+		$scope.contacts = [];
+		var start = new Date().getTime();
+		$scope.getAllContacts = function(){
+			ContactService.getContacts().then(function(data){
+			$scope.contacts = data;
+		});
+		var end = new Date().getTime();
+		$scope.time = end - start;
+		}
 	}])
-		module.controller('DetailCtrl',['$scope','person', function($scope, person){
+		module.controller('DetailCtrl',['$scope','contact', function($scope, contact){
 			console.log('DetailCtrl');
-			$scope.person = person;
+			$scope.contact = contact;
+			console.log("ControllerContactInfo: "+JSON.stringify(contact));
 	}]);
 	
 

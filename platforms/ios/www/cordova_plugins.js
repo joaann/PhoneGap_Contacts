@@ -82,7 +82,7 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-contacts": "1.1.0",
-    "cordova-plugin-whitelist": "1.2.0"
+    "cordova-plugin-whitelist": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

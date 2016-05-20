@@ -1,10 +1,11 @@
-List loaded in: {{time}} ms.
-<ul>
-	<li ng-repeat="contact in contacts">
-		<a ui-sref="contacts.detail({id:contact.id})">{{contact.id}},{{contact.displayName}}</a>
+<h3>Got contacts from plugin: {{time}} ms.<h3><br/>
+<button class="btn btn-default" ng-click="getAllContacts()">Load Contacts</button>
+<ul class="list-group">
+	<li class="list-group-item" ng-repeat="contact in contacts">
+		<a ui-sref="contacts.detail({id:contact.id})">{{contact.name.familyName}}<br/>{{contact.name.givenName}}</a>
 	</li>
 </ul>
-<button class="btn btn-default" ng-click="getAllContacts()">Load Contacts</button>
+
 <!-- <ul>
 	<li ng-repeat="contact in contacts">
 		{{contact.displayName}}

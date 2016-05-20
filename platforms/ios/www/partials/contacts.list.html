@@ -1,5 +1,13 @@
+List loaded in: {{time}} ms.
 <ul>
 	<li ng-repeat="contact in contacts">
-		<a ui-sref="contacts.detail({id:contact.id})">{{contact.name}}</a>
+		<a ui-sref="contacts.detail({id:contact.id})">{{contact.id}},{{contact.displayName}}</a>
 	</li>
 </ul>
+<button class="btn btn-default" ng-click="getAllContacts()">Load Contacts</button>
+<!-- <ul>
+	<li ng-repeat="contact in contacts">
+		{{contact.displayName}}
+	</li>
+<ul> -->
+<!-- <pre>{{contacts | json}}</pre> -->
